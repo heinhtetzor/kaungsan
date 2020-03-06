@@ -1,0 +1,17 @@
+#collaterals-table > tbody > tr > td {
+    height: 90px;
+    padding-top: 30px;
+    font-size: 18px;
+}
+#collaterals-table > tbody > tr {
+   transition: 0.2s transform;
+}
+#collaterals-table > tbody >tr:hover{
+    transform: scale(1.05) translate(30px); 
+}  
+.pagination {
+    justify-content: center !important;
+}
+.card-header-title {
+    justify-content: space-between !important;
+}
