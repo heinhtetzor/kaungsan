@@ -19,6 +19,34 @@ class CollateralController extends Controller
         $collaterals = Collateral::latest()->paginate(10);
         return view('collaterals.index')->with('collaterals', $collaterals);
     }
+    public function searchById(Request $request)
+    {
+        $collateral = Collateral::find($request->id);
+
+        if($collateral)
+        {
+            return view('collaterals.show')->with('collateral', $collateral);
+        }
+        else 
+        {
+            return redirect()->back()->withErrors(['searchIdError' => 'There is no such collateral with this ID.']);
+        }
+    }
+    public function searchByCustomerName(Request $request)
+    {
+        $collaterals = Collateral::where('customer_name', 'LIKE', "%$request->name%")->paginate(10);
+        if($collaterals->count() > 0)
+        {
+            return view('collaterals.index')
+            ->with('collaterals', $collaterals)
+            ->with('msg', $request->name);
+        }
+        else
+        {
+            return redirect()->back()->withErrors(['searchCustomerNameError' => 'There is no such collaterals belong to this customer.']);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.

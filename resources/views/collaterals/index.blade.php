@@ -1,8 +1,55 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <a class="button is-danger" href={{ route('collaterals.create') }}>Create New</a>
+        <div class="columns">
+            <div class="column">
+                <a class="button is-danger" href={{ route('collaterals.create') }}>
+                    <span style="margin-right: 6px;" class="fas fa-plus-circle"></span>
+                    Create New
+                </a>
+            </div>
+            {{-- search by id --}}
+            <div class="column">
+                <form action="{{ route('collaterals.searchById') }}" method="GET">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" name="id" placeholder="Enter Reference ID">
+                        </div>
+                        <div class="control">
+                            <button class="button is-info">
+                            Search
+                            </button>
+                        </div>
+                    </div>
+                    @if($errors->has('searchIdError'))
+                        <p class="help is-danger">{{ $errors->first('searchIdError') }}</p>
+                    @endif
+                </form>
+            </div>
+            {{-- search by customer name --}}
+            <div class="column">
+                <form action="{{ route('collaterals.searchByCustomerName') }}" method="GET">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" name="name" placeholder="Enter Customer Name">
+                        </div>
+                        <div class="control">
+                            <button class="button is-info">
+                            Search
+                            </button>
+                        </div>
+                    </div>
+                    @if($errors->has('searchCustomerNameError'))
+                    <p class="help is-danger">{{ $errors->first('searchCustomerNameError') }}</p>
+                    @endif
+                </form>
+            </div>
+        </div>
+
         <br>
+        @isset($msg)
+        <p class="has-text-danger">Search Results for : <i>{{ $msg }}</i></strong></p>
+        @endisset
         <table class="table" id="collaterals-table">
             <thead>
                 <tr>
