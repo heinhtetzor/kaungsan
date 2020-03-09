@@ -15,3 +15,18 @@
 .card-header-title {
     justify-content: space-between !important;
 }
+#invoice-title {
+    display: none;
+}
+#exceed-warranty-text {
+    display: none;
+}
+/* hiding some content upon printing invoice */
+@media print {
+    #invoice-title {
+        display: block;
+    }
+    #exceed-warranty-text {
+        display: block;
+    }
+}

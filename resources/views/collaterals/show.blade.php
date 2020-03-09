@@ -43,7 +43,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Expiry Date</strong></td>
-                                <td class="has-text-left">{{ $collateral->expired_date }}</td>
+                                <td class="has-text-left">{{ $collateral->expired_date->toFormattedDateString() }}</td>
                             </tr>
                         </table>
                     </div>
@@ -122,7 +122,7 @@
                                     <td width="33%" class="has-text-centered">{{ $item->paid_amount }} ကျပ်</td>
                                     <td width="33%">{{ $item->paid_month }} month</td>
                                     <td class="has-text-right">
-                                        <a class="button is-primary">
+                                            <a class="button is-primary" href="{{ route('collaterals.showCollateralInterest', $item->id) }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                     </td>
@@ -172,7 +172,7 @@
                 <h2>Are you sure?</h2>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button hideModal">Cancel</button>
+                    <button type="button" class="button hideModal">Cancel</button>
                     <button type="submit" class="button is-success">Confrim</button>
                 </footer>
             </form>
@@ -222,7 +222,7 @@
                 
             </section>
             <footer class="modal-card-foot">
-                <button class="button hideModal">Cancel</button>
+                <button type="button" class="button hideModal">Cancel</button>
                 <button type="submit" class="button is-success">Confrim</button>
             </footer>
         </form>

@@ -20,7 +20,7 @@ Auth::routes();
 //search collaterals
 Route::get('/collaterals/searchById', 'CollateralController@searchById')->name('collaterals.searchById')->middleware('auth');
 Route::get('/collaterals/searchByCustomerName', 'CollateralController@searchByCustomerName')->name('collaterals.searchByCustomerName')->middleware('auth');
-
+Route::get('/collaterals/interests/{id}', 'CollateralController@showCollateralInterest')->name('collaterals.showCollateralInterest')->middleware('auth');
 Route::resource('/collaterals', 'CollateralController')->middleware('auth');
 
 Route::post('/collaterals/interests', 'CollateralController@addInterest')->name('collaterals.addInterest')->middleware('auth');

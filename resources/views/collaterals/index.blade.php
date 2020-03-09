@@ -97,7 +97,7 @@
                     <td>
                         {{ $c->getExpiredDateDiffForHumans($c->expired_date) }}<br>
                         <span class="tag is-warning">
-                            {{ $c->expired_date }}
+                            {{ $c->expired_date->toFormattedDateString() }}
                         </span>
                     </td>
                 </tr>

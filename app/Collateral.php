@@ -52,7 +52,7 @@ class Collateral extends Model
     
     public function getExpiredDateAttribute($date)
     {
-        return Carbon::parse($date)->toFormattedDateString();
+        return Carbon::parse($date);
     }
     public function getExpiredDateDiffForHumans($date)
     {
@@ -70,6 +70,7 @@ class Collateral extends Model
     {
         $exceededDay = Carbon::parse($this->created_at)->addDay()->diffInDays(Carbon::now());
         $subTotal = ((($this->rate/100) * $this->amount ) /30 ) * $exceededDay;
+        $subTotal = round($subTotal, 0);
         return $subTotal;
     }
     public function getDuration()
@@ -90,10 +91,20 @@ class Collateral extends Model
             return $totalBill .' ကျပ်';
         }
     }
+    public function getTotalPaidBill()
+    {
+        $totalPaidBill = $this->collateral_interests->sum('paid_amount');
+        return $totalPaidBill;
+    }
+    //problem is here
     public function setExpiredDateAttribute($month)
     {
         $this->attributes['expired_date'] = Carbon::now()->addMonths($month);
     }
+    // public function setNewExpiredDate($month)
+    // {
+    //     $this->expired_date = $this->expired_date->addMonths($month);
+    // }
     public function getKyatAttribute($kyat)
     {
         if($kyat)
@@ -154,9 +165,9 @@ class Collateral extends Model
         return $statusText;
     }
     //custom function for calculating rate
-    public function calculateRate($rate, $amount)
+    public function calculateRate()
     {
-        $calculatedRate = ($rate / 100 ) * $amount;
+        $calculatedRate = ($this->rate / 100 ) * $this->amount;
         return $calculatedRate;
     }
     protected $table = 'collaterals';

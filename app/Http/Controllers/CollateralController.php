@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Collateral;
 use App\CollateralInterest;
 use Illuminate\Pagination\Paginator;
@@ -35,6 +36,7 @@ class CollateralController extends Controller
     public function searchByCustomerName(Request $request)
     {
         $collaterals = Collateral::where('customer_name', 'LIKE', "%$request->name%")->paginate(10);
+
         if($collaterals->count() > 0)
         {
             return view('collaterals.index')
@@ -75,13 +77,22 @@ class CollateralController extends Controller
     // add interest
     public function addInterest(Request $request)
     {
-        $collateral_interest = $request->all();
-        // var_dump($request['collateral_id']);
-        CollateralInterest::create($collateral_interest);
-        //get the collateral to return to view
-        $collateral = Collateral::find($request->collateral_id);
-        return view('collaterals.show')
-                        ->with('collateral', $collateral);
+        $collateral_interest_form = $request->all();
+
+        $ci = CollateralInterest::create($collateral_interest_form);
+        
+        if($ci) 
+        {
+            $collateral = Collateral::find($ci->collateral_id);
+            $newExpiredDate = $collateral->expired_date->addMonth();
+            // var_dump($newExpiredDate);
+            $collateral->setExpiredDateAttribute($ci->paid_month);
+            $collateral->save();
+            //reduce month on delete
+        }
+
+        // return redirect()->route('collaterals.showCollateralInterest', $ci)
+        //                ->with('collateralInterest', $ci);
     }
     /**
      * Display the specified resource.
@@ -93,6 +104,18 @@ class CollateralController extends Controller
     {
         $collateral = Collateral::find($id);
         return view('collaterals.show')->with('collateral', $collateral);
+    }
+    // show interest invoice
+    // collaterals.showCollateralInterest
+    // get Invoice
+    public function showCollateralInterest($id)
+    {
+        $ci = CollateralInterest::find($id);
+        if($ci)
+        {
+            return view('Collaterals.invoice')
+                        ->with('collateralInterest', $ci);
+        }
     }
 
     /**
