@@ -69,6 +69,7 @@ class CollateralController extends Controller
     public function store(Request $request)
     {
         $collateral = $request->all();
+        $collateral['expired_date'] = Carbon::now()->addMonths($request->expired_date);
         // var_dump($collateral);
         Collateral::create($collateral);
         return redirect()->route('collaterals.index')
@@ -84,15 +85,15 @@ class CollateralController extends Controller
         if($ci) 
         {
             $collateral = Collateral::find($ci->collateral_id);
-            $newExpiredDate = $collateral->expired_date->addMonth();
-            // var_dump($newExpiredDate);
-            $collateral->setExpiredDateAttribute($ci->paid_month);
+            $newExpiredDate = $collateral->expired_date->addMonths($ci->paid_month);
+            //var_dump($newExpiredDate);
+            $collateral->expired_date = $newExpiredDate;
             $collateral->save();
             //reduce month on delete
         }
 
-        // return redirect()->route('collaterals.showCollateralInterest', $ci)
-        //                ->with('collateralInterest', $ci);
+        return redirect()->route('collaterals.showCollateralInterest', $ci)
+                       ->with('collateralInterest', $ci);
     }
     /**
      * Display the specified resource.

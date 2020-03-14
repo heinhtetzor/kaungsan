@@ -56,7 +56,7 @@ class Collateral extends Model
     }
     public function getExpiredDateDiffForHumans($date)
     {
-        return Carbon::parse($date)->diffForHumans();
+        return Carbon::parse($date->addMonth())->diffForHumans();
     }
     public function getCreatedAtAttribute($date)
     {
@@ -97,10 +97,10 @@ class Collateral extends Model
         return $totalPaidBill;
     }
     //problem is here
-    public function setExpiredDateAttribute($month)
-    {
-        $this->attributes['expired_date'] = Carbon::now()->addMonths($month);
-    }
+    // public function setExpiredDateAttribute($month)
+    // {
+    //     $this->attributes['expired_date'] = Carbon::now()->addMonths($month);
+    // }
     // public function setNewExpiredDate($month)
     // {
     //     $this->expired_date = $this->expired_date->addMonths($month);

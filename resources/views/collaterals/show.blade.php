@@ -242,6 +242,7 @@
         })
         $('.hideModal').click(()=>{
             deactivateModal();
+
         })
         $('#paid_month').on('keyup', (e)=>{
             var chargeAmount = $('#chargeAmount').text();
@@ -257,6 +258,7 @@
     }
     function deactivateModal(){
         $('#payInterestModal').removeClass('is-active');
+        $('#withdrawModal').removeClass('is-active');
     }
 </script>
 @endsection

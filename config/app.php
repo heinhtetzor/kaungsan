@@ -121,6 +121,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'deploy_secret' => env('APP_DEPLOY_SECRET'),
+
     'cipher' => 'AES-256-CBC',
 
     /*
