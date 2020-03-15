@@ -41,5 +41,6 @@ class deploy extends Command
         exec('git commit -m "little updates"');
         exec('git fetch');
         exec('git pull -all');
+        exce('php artisan migrate');
     }
 }

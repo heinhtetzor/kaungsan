@@ -30,3 +30,12 @@
         display: block;
     }
 }
+
+#login-card {
+    max-width: 400px;
+    margin: auto;
+}
+#register-card {
+    max-width: 400px;
+    margin: auto;
+}

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card">
+<div class="card" id="register-card">
         <header class="card-header">
           <p class="card-header-title">
             Register a new user
