@@ -114,7 +114,7 @@ class CollateralController extends Controller
         $ci = CollateralInterest::find($id);
         if($ci)
         {
-            return view('Collaterals.invoice')
+            return view('collaterals.invoice')
                         ->with('collateralInterest', $ci);
         }
     }

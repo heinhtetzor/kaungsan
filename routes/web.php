@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//for automatic deploy
+Route::post('/deploy', 'DeployController@deploy');
+
 //search collaterals
 Route::get('/collaterals/searchById', 'CollateralController@searchById')->name('collaterals.searchById')->middleware('auth');
 Route::get('/collaterals/searchByCustomerName', 'CollateralController@searchByCustomerName')->name('collaterals.searchByCustomerName')->middleware('auth');
